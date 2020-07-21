@@ -1,0 +1,65 @@
+jobs:
+  - script: multibranchPipelineJob('configuration-as-code') {
+      branchSources {
+      git {
+      id = 'configuration-as-code'
+      remote('https://github.com/jenkinsci/configuration-as-code-plugin.git')
+      }
+      }
+  - script: >
+      folder('testjobs')
+  - script: >
+      pipelineJob('testjobs/default-agent') {
+        definition {
+          cps {
+            script("""\
+              pipeline {
+                agent any
+                stages {
+                  stage ('test') {
+                    steps {
+                      echo "hello"
+                    }
+                  }
+                }
+              }""".stripIndent())
+          }
+        }
+      }
+credentials:        
+  system:
+    domainCredentials:
+      - credentials:
+          - string:
+              id: "github-secret-text"
+              scope: GLOBAL
+              secret: "{AQAAABAAAAAwwFszCOzH2HpxQ63wCNrYHoXR3xekYB1uSjLGRW95/z90vHbDCxOfZvUE3Y+5NfUFJMdyjWUu+7DdenoRVkRMZg==}"
+          - usernamePassword:
+              description: "The GitHub token"
+              id: "GitHub"
+              password: "{AQAAABAAAAAwQja3ubEL5cAhmXEVzezcneOCDayI5M/+Wx1tRRp0+rxgXZ16JOd1cCjsICknMP3BquBT0SiTRPHP6SiwokDNog==}"
+              scope: GLOBAL
+              username: "se-platform"
+          - string:
+              description: "sonar token for int-docs"
+              id: "sonar-token"
+              scope: GLOBAL
+              secret: "{AQAAABAAAAAwjJcDGb4kCfkOQ+cS5Kl1WSs9tp9evZkt/SoPpzuykDDO/BjQGV9bNILTe7Dv6qzV3UgJuLWdN0kSdx5ZvQ8FDg==}"
+          - string:
+              description: "This is the Slack integration"
+              id: "Slack"
+              scope: GLOBAL
+              secret: "{AQAAABAAAAAgeHHm07aVci/LzRlpsZSU6/N4LuvRTuiNMSmeIqCK4Q7WvE0m4u7YTk1o/xhNyPgu}"
+          - string:
+              description: "sonar webhook for int-docs"
+              id: "int-docs-sonarcloud-webhook-secret"
+              scope: GLOBAL
+              secret: "{AQAAABAAAAAQBYZD/Du4hhw6Pbv7QVoSuIErxQLMEs7RunsIMyf61qg=}"
+          - string:
+              id: "DEV_APP_INT_DOCS_OPEN_API"
+              scope: GLOBAL
+              secret: "{AQAAABAAAABAAwyNPjBDWkwQmoKsppooOrqpcap7xhC1BP7g8E7UFLLPU/ZfXdGz7LZKuJ9barypsuBQSzRtGlKQsepw8EvtD/YS2U7F0iJXM3Y+KEe9H38=}"
+          - string:
+              id: "SBX_APP_INT_DOCS_OPEN_API"
+              scope: GLOBAL
+              secret: "{AQAAABAAAABARIYPN6Hb+g4fS22Xiv7vRBCAPVAfOUjj+S0vkoHkIKv7qME7m745ONmDATb89yrQuErf3gHheul8eDwGwKq6flc4L9M/wF7nDwbsZ3wdeuE=}"
