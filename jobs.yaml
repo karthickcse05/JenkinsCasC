@@ -1,5 +1,5 @@
 jenkins:
-  systemMessage: "Controlled by Configuration as Code"
+  systemMessage: "Controlled by Configuration as Codes"
 jobs:
   - script: >
       folder('testjobs')
