@@ -1,8 +1,10 @@
 jenkins:
-  systemMessage: "Controlled by Configuration as Codesas"
+  systemMessage: "Controlled by Configuration as Codes"
 jobs:
   - script: >
-      pipelineJob('default-agents') {
+      folder('testjob')
+  - script: >
+      pipelineJob('testjob/default-agents') {
         definition {
           cps {
             script("""\
@@ -17,6 +19,11 @@ jobs:
                   stage ('deploy') {
                     steps {
                       echo "hello deploy"
+                    }
+                  }
+                  stage ('Automation') {
+                    steps {
+                      echo "hello Automation"
                     }
                   }
                 }
