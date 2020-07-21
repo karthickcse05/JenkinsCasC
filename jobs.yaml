@@ -7,7 +7,7 @@ jobs:
       id = 'configuration-as-code'
       remote('https://github.com/jenkinsci/configuration-as-code-plugin.git')
       }
-      }
+     }
   - script: >
       folder('testjobs')
   - script: >
