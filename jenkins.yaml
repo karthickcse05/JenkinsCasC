@@ -1,19 +1,49 @@
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - string:
+          id: "github-secret-text"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAAwwFszCOzH2HpxQ63wCNrYHoXR3xekYB1uSjLGRW95/z90vHbDCxOfZvUE3Y+5NfUFJMdyjWUu+7DdenoRVkRMZg==}"
+      - usernamePassword:
+          description: "The GitHub token"
+          id: "GitHub"
+          password: "{AQAAABAAAAAwQja3ubEL5cAhmXEVzezcneOCDayI5M/+Wx1tRRp0+rxgXZ16JOd1cCjsICknMP3BquBT0SiTRPHP6SiwokDNog==}"
+          scope: GLOBAL
+          username: "se-platform"
+      - string:
+          description: "sonar token for int-docs"
+          id: "sonar-token"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAAwjJcDGb4kCfkOQ+cS5Kl1WSs9tp9evZkt/SoPpzuykDDO/BjQGV9bNILTe7Dv6qzV3UgJuLWdN0kSdx5ZvQ8FDg==}"
+      - string:
+          description: "This is the Slack integration"
+          id: "Slack"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAAgeHHm07aVci/LzRlpsZSU6/N4LuvRTuiNMSmeIqCK4Q7WvE0m4u7YTk1o/xhNyPgu}"
+      - string:
+          description: "sonar webhook for int-docs"
+          id: "int-docs-sonarcloud-webhook-secret"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAAQBYZD/Du4hhw6Pbv7QVoSuIErxQLMEs7RunsIMyf61qg=}"
+      - string:
+          id: "DEV_APP_INT_DOCS_OPEN_API"
+          scope: GLOBAL
+          secret: "{AQAAABAAAABAAwyNPjBDWkwQmoKsppooOrqpcap7xhC1BP7g8E7UFLLPU/ZfXdGz7LZKuJ9barypsuBQSzRtGlKQsepw8EvtD/YS2U7F0iJXM3Y+KEe9H38=}"
+      - string:
+          id: "SBX_APP_INT_DOCS_OPEN_API"
+          scope: GLOBAL
+          secret: "{AQAAABAAAABARIYPN6Hb+g4fS22Xiv7vRBCAPVAfOUjj+S0vkoHkIKv7qME7m745ONmDATb89yrQuErf3gHheul8eDwGwKq6flc4L9M/wF7nDwbsZ3wdeuE=}"
 jenkins:
   agentProtocols:
   - "JNLP4-connect"
   - "Ping"
-  authorizationStrategy:
-    loggedInUsersCanDoAnything:
-      allowAnonymousRead: false
-  crumbIssuer:
-    standard:
-      excludeClientIPFromCrumb: false
   disableRememberMe: false
-  globalNodeProperties:
-  - envVars:
-      env:
-      - key: "CASC_JENKINS_CONFIGs"
-        value: "/var/jenkins_home/casc_configs"
+  disabledAdministrativeMonitors:
+  - "GitHubHookRegisterProblemMonitor"
+  - "OldData"
+  - "jenkins.security.QueueItemAuthenticatorMonitor"
   labelAtoms:
   - name: "master"
   markupFormatter: "plainText"
@@ -29,24 +59,45 @@ jenkins:
     enabled: true
   scmCheckoutRetryCount: 0
   securityRealm:
-    local:
-      allowsSignup: false
-      enableCaptcha: false
-      users:
-      - id: "admin"
-        name: "admin"
-        properties:
-        - "apiToken"
-        - "myView"
-        - "timezone"
-  slaveAgentPort: 50000
+    github:
+      clientID: "3f688ec7650b077e5997"
+      clientSecret: "{AQAAABAAAAAwnYxwb05bFQ2fZLMLuFdPUtNe3phfp1FByjk6LZ6Ht6jUvP1b98swok4YCF45PWMOsrZCQy+u0bLDdok1mTuUNg==}"
+      githubApiUri: "https://api.github.com"
+      githubWebUri: "https://github.com"
+      oauthScopes: "read:org,user:email,repo"
+  slaveAgentPort: -1
   updateCenter:
     sites:
     - id: "default"
       url: "https://updates.jenkins.io/update-center.json"
   views:
+  - list:
+      columns:
+      - "status"
+      - "weather"
+      - "jobName"
+      - "lastSuccess"
+      - "lastFailure"
+      - "lastDuration"
+      - "buildButton"
+      - "favoriteColumn"
+      includeRegex: "platform-maintenance.*"
+      name: "Platform"
   - all:
       name: "all"
+  - list:
+      columns:
+      - "status"
+      - "weather"
+      - "jobName"
+      - "lastSuccess"
+      - "lastFailure"
+      - "lastDuration"
+      - "buildButton"
+      - "favoriteColumn"
+      includeRegex: "(EMIS Group Plc/.*/.*)"
+      name: "everything"
+      recurse: true
   viewsTabBar: "standard"
 security:
   apiToken:
@@ -56,21 +107,123 @@ security:
   sSHD:
     port: -1
 unclassified:
+  ansiColorBuildWrapper:
+    colorMaps:
+    - black: "#000000"
+      blackB: "#4C4C4C"
+      blue: "#1E90FF"
+      blueB: "#4682B4"
+      cyan: "#00CDCD"
+      cyanB: "#00FFFF"
+      green: "#00CD00"
+      greenB: "#00FF00"
+      magenta: "#CD00CD"
+      magentaB: "#FF00FF"
+      name: "xterm"
+      red: "#CD0000"
+      redB: "#FF0000"
+      white: "#E5E5E5"
+      whiteB: "#FFFFFF"
+      yellow: "#CDCD00"
+      yellowB: "#FFFF00"
+    - black: "#000000"
+      blackB: "#555555"
+      blue: "#0000AA"
+      blueB: "#5555FF"
+      cyan: "#00AAAA"
+      cyanB: "#55FFFF"
+      defaultBackground: 0
+      defaultForeground: 7
+      green: "#00AA00"
+      greenB: "#55FF55"
+      magenta: "#AA00AA"
+      magentaB: "#FF55FF"
+      name: "vga"
+      red: "#AA0000"
+      redB: "#FF5555"
+      white: "#AAAAAA"
+      whiteB: "#FFFFFF"
+      yellow: "#AA5500"
+      yellowB: "#FFFF55"
+    - black: "black"
+      blackB: "black"
+      blue: "blue"
+      blueB: "blue"
+      cyan: "cyan"
+      cyanB: "cyan"
+      green: "green"
+      greenB: "green"
+      magenta: "magenta"
+      magentaB: "magenta"
+      name: "css"
+      red: "red"
+      redB: "red"
+      white: "white"
+      whiteB: "white"
+      yellow: "yellow"
+      yellowB: "yellow"
+    - black: "#2E3436"
+      blackB: "#2E3436"
+      blue: "#3465A4"
+      blueB: "#3465A4"
+      cyan: "#06989A"
+      cyanB: "#06989A"
+      defaultBackground: 0
+      defaultForeground: 7
+      green: "#4E9A06"
+      greenB: "#4E9A06"
+      magenta: "#75507B"
+      magentaB: "#75507B"
+      name: "gnome-terminal"
+      red: "#CC0000"
+      redB: "#CC0000"
+      white: "#D3D7CF"
+      whiteB: "#D3D7CF"
+      yellow: "#C4A000"
+      yellowB: "#C4A000"
+  bitbucketEndpointConfiguration:
+    endpoints:
+    - bitbucketCloudEndpoint:
+        enableCache: false
+        manageHooks: false
+        repositoriesCacheDuration: 0
+        teamCacheDuration: 0
   buildDiscarders:
     configuredBuildDiscarders:
     - "jobBuildDiscarder"
+  buildMonitorView:
+    permissionToCollectAnonymousUsageStatistics: true
   buildStepOperation:
     enabled: false
   defaultFolderConfiguration:
     healthMetrics:
     - worstChildHealthMetric:
         recursive: true
-  location:
-    adminAddress: "address not configured yet <nobody@nowhere>"
-    url: "http://localhost:8082/"
+  extendedEmailPublisher:
+    adminRequiredForTemplateTesting: false
+    allowUnregisteredEnabled: false
+    charset: "UTF-8"
+    debugMode: false
+    defaultBody: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:\r\n\r\nCheck\
+      \ console output at $BUILD_URL to view the results."
+    defaultContentType: "text/plain"
+    defaultSubject: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!"
+    maxAttachmentSize: -1
+    maxAttachmentSizeMb: 0
+    precedenceBulk: false
+    useSsl: false
+    watchingEnabled: false
+  gitHubConfiguration:
+    apiRateLimitChecker: ThrottleForNormalize
+  gitHubPluginConfig:
+    hookUrl: "https://chennai-solution-two-deploy.emisgroup.uk/github-webhook/"
+  gitSCM:
+    createAccountBasedOnEmail: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+  mailer:
+    charset: "UTF-8"
+    useSsl: false
+    useTls: false
   pollSCM:
     pollingThreadCount: 10
-  timestamperConfig:
-    allPipelines: false
-    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
-    systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
