@@ -4,13 +4,7 @@ jenkins:
 credentials:
   system:
     domainCredentials:
-      - domain:
-          name: "test.com"
-          description: "test.com domain"
-          specifications:
-            - hostnameSpecification:
-                includes: "*.test.com"
-        credentials:
+      - credentials:
           - usernamePassword:
               scope: SYSTEM
               id: sudo_password
