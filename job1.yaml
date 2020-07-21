@@ -1,0 +1,21 @@
+jenkins:
+  systemMessage: "Controlled by Configuration as Codess"
+jobs:
+  - script: >
+      pipelineJob('default-agents') {
+        definition {
+          cps {
+            script("""\
+              pipeline {
+                agent any
+                stages {
+                  stage ('test') {
+                    steps {
+                      echo "hello"
+                    }
+                  }
+                }
+              }""".stripIndent())
+          }
+        }
+      }
