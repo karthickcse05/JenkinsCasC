@@ -1,10 +1,10 @@
 jenkins:
-  systemMessage: "Controlled by Configuration as Codes"
+  systemMessage: "Controlled by Configuration as Codess"
 jobs:
   - script: >
-      folder('testjobs')
+      folder('testjobss')
   - script: >
-      pipelineJob('testjobs/default-agent') {
+      pipelineJob('testjobss/default-agent') {
         definition {
           cps {
             script("""\
