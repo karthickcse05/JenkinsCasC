@@ -1,0 +1,8 @@
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - string:
+          id: "github-secret-text"
+          scope: GLOBAL
+          secret: "{test}"
