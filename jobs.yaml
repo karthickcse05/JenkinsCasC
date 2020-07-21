@@ -1,3 +1,5 @@
+jenkins:
+  systemMessage: "Controlled by Configuration as Code"
 jobs:
   - script: multibranchPipelineJob('configuration-as-code') {
       branchSources {
