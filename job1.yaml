@@ -1,5 +1,5 @@
 jenkins:
-  systemMessage: "Controlled by Configuration as Codess"
+  systemMessage: "Controlled by Configuration as Codesas"
 jobs:
   - script: >
       pipelineJob('default-agents') {
