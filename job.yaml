@@ -2,9 +2,7 @@ jenkins:
   systemMessage: "Controlled by Configuration as Codess"
 jobs:
   - script: >
-      folder('testjobss')
-  - script: >
-      pipelineJob('testjobss/default-agent') {
+      pipelineJob('default-agents') {
         definition {
           cps {
             script("""\
