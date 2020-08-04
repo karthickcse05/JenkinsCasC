@@ -1,8 +1,5 @@
 jenkins:
   systemMessage: "Controlled by Configuration as Codes"
-plugins:
-  required:
-    docker-slaves: 1.0.7 
 credentials:        
   system:
     domainCredentials:
