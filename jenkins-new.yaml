@@ -29,11 +29,18 @@ credentials:
               description: "sonar webhook for int-docs"
               id: "int-docs-sonarcloud-webhook-secret"
               scope: GLOBAL
-              secret: "{test}"          
+              secret: "{test}"
+          - string:
+              description: "test int-docs"
+              id: "test-secret-test"
+              scope: GLOBAL
+              secret: "{test}"    
       
 jobs:
+ - script: >
+      folder('testjob')
   - script: >
-      pipelineJob('default-agents') {
+      pipelineJob('testjob/default-agents') {
         definition {
           cps {
             script("""\
@@ -43,6 +50,11 @@ jobs:
                   stage ('test') {
                     steps {
                       echo "hello"
+                    }
+                  }
+                  stage ('deploy') {
+                    steps {
+                      echo "hello deploy"
                     }
                   }
                 }
