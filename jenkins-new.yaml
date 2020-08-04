@@ -1,0 +1,52 @@
+jenkins:
+  systemMessage: "Controlled by Configuration as Codes"
+
+credentials:        
+  system:
+    domainCredentials:
+      - credentials:
+          - string:
+              id: "github-secret-text"
+              scope: GLOBAL
+              secret: "{test}"
+          - usernamePassword:
+              description: "The GitHub token"
+              id: "GitHub"
+              password: "{test}"
+              scope: GLOBAL
+              username: "se-platform"
+          - string:
+              description: "sonar token for int-docs"
+              id: "sonar-token"
+              scope: GLOBAL
+              secret: "{test}"
+          - string:
+              description: "This is the Slack integration"
+              id: "Slack"
+              scope: GLOBAL
+              secret: "{test}"
+          - string:
+              description: "sonar webhook for int-docs"
+              id: "int-docs-sonarcloud-webhook-secret"
+              scope: GLOBAL
+              secret: "{test}"          
+      
+jobs:
+  - script: >
+      pipelineJob('default-agents') {
+        definition {
+          cps {
+            script("""\
+              pipeline {
+                agent any
+                stages {
+                  stage ('test') {
+                    steps {
+                      echo "hello"
+                    }
+                  }
+                }
+              }""".stripIndent())
+          }
+        }
+      }      
