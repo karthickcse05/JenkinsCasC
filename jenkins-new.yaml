@@ -1,11 +1,10 @@
 jenkins:
   systemMessage: "Controlled by Configuration as Codes"
   globalNodeProperties:
-    envVars:
+  - envVars:
       env:
-       key: testname
-       value: "demotest"
-     
+      - key: testname
+        value: demo
 credentials:        
   system:
     domainCredentials:
