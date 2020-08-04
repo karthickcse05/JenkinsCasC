@@ -52,11 +52,6 @@ jobs:
                       echo "hello"
                     }
                   }
-                  stage ('deploy') {
-                    steps {
-                      echo "hello deploy"
-                    }
-                  }
                 }
               }""".stripIndent())
           }
