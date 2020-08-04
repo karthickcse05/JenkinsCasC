@@ -37,7 +37,7 @@ credentials:
               secret: "{test}"    
       
 jobs:
- - script: >
+  - script: >
       folder('testjob')
   - script: >
       pipelineJob('testjob/default-agents') {
