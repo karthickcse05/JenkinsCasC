@@ -1,5 +1,8 @@
 jenkins:
   systemMessage: "Controlled by Configuration as Codes"
+  globalNodeProperties:
+    envVars:
+      - testname: "demotest"
 
 credentials:        
   system:
@@ -49,7 +52,7 @@ jobs:
                 stages {
                   stage ('test') {
                     steps {
-                      echo "hello"
+                      echo "${testname}"
                     }
                   }
                 }
